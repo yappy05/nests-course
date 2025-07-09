@@ -1,17 +1,18 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString, IsUUID, Max, Min } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class MovieDto {
-  @IsNotEmpty()
+export class MovieResponse {
+  @ApiProperty({
+    description: 'айди фильма',
+    example: '123456',
+    type: String,
+  })
+  id: string;
+  @ApiProperty({
+    description: 'название фильма',
+    example: 'fight club',
+  })
   @IsString()
+  @IsNotEmpty()
   title: string;
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(1888)
-  @Max(new Date().getFullYear())
-  releaseYear: number;
-  @IsString()
-  imageUrl: string;
-  @IsArray({})
-  @IsUUID(4, { each: true })
-  actorsIds: string[];
 }
